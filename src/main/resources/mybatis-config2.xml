@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 属性配置  已经在db.properties中加载
+    <properties>
+        <property name="jdbc.driver" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbc.url" value="jdbc:mysql://localhost:3306/mybatisdemo?useSSL=false"/>
+        <property name="jdbc.username" value="root"/>
+        <property name="jdbc.password" value="qq6583450"/>
+
+    </properties>
+    -->
+
+    <!--从classpath的根路径加载属性文件 加载数据库配置信息文件-->
+    <properties resource="db.properties"/>
+
+
+
+    <!--日志技术（格式为写在开头）-->
+     <settings>
+         <setting name="logImpl" value="LOG4J"/>
+     </settings>
+
+
+
+
+    <!--类型别名(为类的地址取别名) mybatis中别名不区分大小写-->
+    <typeAliases>
+
+      <!--<typeAlias type="cn.mybatis.com.hellow.User" alias="User"></typeAlias>-->
+
+        <!--也可以配置包的别名 一般写到domain包就行，会自动为包其别名 -->
+        <package name="cn.mybatis.com.hellow"/>
+    </typeAliases>
+
+
+    <!--1,配置数据库环境  -->
+
+   <environments default="dev">
+
+       <!--开发环境:在以后事务管理器和连接池都是交给Spring框架来管理 dev-->
+    <environment id="dev">
+        <!--事务管理器-->
+        <transactionManager type="JDBC"></transactionManager>
+        <!--连接池-->
+        <dataSource type="POOLED">
+            <!--连接数据库四要素-->
+            <property name="driver" value="${jdbc.driver}"/>
+            <property name="url" value="${jdbc.url}"/>
+            <property name="username" value="${jdbc.username}"/>
+            <property name="password" value="${jdbc.password}"/>
+
+
+        </dataSource>
+    </environment>
+
+
+       <!--测试环境 test-->
+       <environment id="test">
+           <transactionManager type=""></transactionManager>
+           <dataSource type=""></dataSource>
+       </environment>
+
+   </environments>
+
+       <!--2,关联映射文件-->
+       <mappers>
+           <mapper resource="cn\mybatis\com\hellow\mapper\ClientMapper.xml"/>
+       </mappers>
+
+
+
+
+
+
+</configuration>
